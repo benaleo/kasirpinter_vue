@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue'
 import {supabase} from "../lib/supabaseClient.ts";
 
-
 type Todo = {
   id: string
   name: string
@@ -20,10 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <ul>
-    <li v-for="todo in todos" :key="todo.id">{{ todo.name }}</li>
-  </ul>
-  <div>Hello</div>
+
 </template>
 
 <style scoped></style>
