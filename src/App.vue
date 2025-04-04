@@ -4,6 +4,7 @@ import {supabase} from "../lib/supabaseClient.ts";
 import LandingPage from './pages/LandingPage.vue'
 import Login from './pages/Login.vue'
 import Register from './pages/Register.vue'
+import NotFound from './pages/NotFound.vue'
 
 type RouteType = {
   [key: string]: any
