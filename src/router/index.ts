@@ -10,29 +10,32 @@ const routes = [
   {
     path: '/',
     name: 'Landing',
-    component: LandingPage
+    component: LandingPage,
+    meta: { isPublic: true }
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: { isPublic: true, preventAuthed: true }
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register
+    component: Register,
+    meta: { isPublic: true, preventAuthed: true }
   },
-
-  // cms
   {
     path: '/v1/dashboard',
     name: 'Dashboard',
-    component: () => import('../views/cms/Dashboard.vue')
+    component: () => import('../views/cms/Dashboard.vue'),
+    meta: { requiresAuth: true } // Mark as protected
   },
   {
     path: '/:catchAll(.*)',
     name: 'NotFound',
-    component: NotFound
+    component: NotFound,
+    meta: { isPublic: true }
   }
 ]
 
@@ -43,7 +46,6 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   const auth = useAuth()
-  const publicRoutes = ['/', '/login', '/register']
   
   // Wait for auth to initialize
   if (!auth.isInitialized.value) {
@@ -57,13 +59,14 @@ router.beforeEach(async (to) => {
     })
   }
 
-  // Redirect logic
-  if (!auth.isInitialized || !auth.isLoggedIn) {
-    return '/login'
+  // Redirect authed users away from auth pages
+  if (to.meta.preventAuthed && auth.isLoggedIn()) {
+    return '/v1/dashboard'
   }
 
-  if ((to.path === '/login' || to.path === '/register') && auth.isLoggedIn()) {
-    return '/v1/dashboard'
+  // Block non-public routes for unauthed users
+  if (!to.meta.isPublic && !auth.isLoggedIn()) {
+    return '/login'
   }
 })
 
