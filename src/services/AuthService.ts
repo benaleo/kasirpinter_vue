@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { supabase } from '../../lib/supabaseClient'
+import { supabase } from '../lib/supabaseClient'
 import type { User, AuthResponse } from '@supabase/supabase-js'
 
 const user = ref<User | null>(null)

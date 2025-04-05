@@ -20,17 +20,11 @@ const register = () => {
       <h3 class="text-white">Selamat datang di Sistem Back Office Kasir Pinter</h3>
       <div class="flex gap-2">
         <Button variant="add" @click="login">Masuk</Button>
-        <Button variant="green" @click="register">Daftar</Button>
+        <Button variant="primary" @click="register">Daftar</Button>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="css" scoped>
-.bg-style {
-  background-image: url('../assets/default/left_side_login.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 </style>

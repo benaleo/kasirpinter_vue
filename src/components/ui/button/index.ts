@@ -20,6 +20,7 @@ export const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         add: 'bg-blue-600 text-white shadow-xs hover:bg-blue-700',
         green: 'bg-green-600 text-white shadow-xs hover:bg-green-700',
+        primary: 'bg-[#723e28] text-white shadow-xs hover:bg-[#723e28]/90',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',

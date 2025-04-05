@@ -2,22 +2,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-h1 {
-    @apply text-4xl font-bold;
-}
-
-h2 {
-    @apply text-2xl font-bold;
-}
-
-h3 {
-    @apply text-xl font-bold;
-}
-
-p {
-    @apply text-base;
-}
-
 :root {
 
     --background: oklch(1 0 0);
@@ -230,10 +214,41 @@ p {
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    h1 {
+        @apply text-4xl font-bold;
+    }
+
+    h2 {
+        @apply text-2xl font-bold;
+    }
+
+    h3 {
+        @apply text-xl font-bold;
+    }
+
+    p {
+        @apply text-base;
+    }
+
+    .bg-style {
+        background-image: url('./assets/default/left_side_login.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .flex-center {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
     }
 }
