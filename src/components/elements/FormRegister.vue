@@ -10,13 +10,15 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { supabase } from '@/lib/supabaseClient'
+import { toast } from 'vue-sonner'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { toast } from 'vue-sonner'
+import { supabase } from '@/lib/supabaseClient'
 import { useAuth } from '@/services/AuthService'
+import type { AuthResponse } from '@supabase/supabase-js'
 
 const formSchema = toTypedSchema(z.object({
+  name: z.string().min(3).max(255),
   email: z.string().email(),
   password: z.string().min(6),
 }))
@@ -29,19 +31,20 @@ const authService = useAuth();
 
 const onSubmit = handleSubmit((values) => {
   console.log('Form submitted!', values)
-  authService.login(values.email, values.password)
+  authService.register(values.email, values.password, values.name)
     .then(({ data, user }) => {
-      console.log('User logged in:', user)
+      console.log('User registered:', user)
       console.log('Auth data:', data)
       if (user == null) {
-        toast.error('Terjadi kesalahan saat login')
+        toast.error('Terjadi kesalahan saat registrasi')
         return
       } else {
         toast.success('Selamat datang kembali')
         window.location.href = '/v1/dashboard'
       }
+
     })
-    .catch((error: any) => {
+    .catch((error : any) => {
       toast.error(error.message)
     })
 })
@@ -50,6 +53,15 @@ const onSubmit = handleSubmit((values) => {
 <template>
   <form @submit="onSubmit" class="w-full flex flex-col gap-4">
     <div class="flex flex-col gap-2">
+      <FormField v-slot="{ componentField }" name="name">
+        <FormItem class="w-full">
+          <FormLabel>Nama</FormLabel>
+          <FormControl>
+            <Input type="text" placeholder="Masukan nama" v-bind="componentField" />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      </FormField>
       <FormField v-slot="{ componentField }" name="email">
         <FormItem class="w-full">
           <FormLabel>Email</FormLabel>
@@ -80,5 +92,5 @@ const onSubmit = handleSubmit((values) => {
       Masuk
     </Button>
   </form>
-  <a href="/register" class="text-sm text-blue-600 hover:underline">Belum punya akun? Daftar</a>
+  <a href="/login" class="text-sm text-blue-600 hover:underline">Sudah punya akun? Masuk</a>
 </template>

@@ -40,8 +40,11 @@ async function logout() {
   if (error) throw error
 }
 
-async function register(email: string, password: string) {
+async function register(email: string, password: string, name: string) {
   const { data, error }: AuthResponse = await supabase.auth.signUp({
+    options: {
+      data: { name },
+    },
     email,
     password
   })
