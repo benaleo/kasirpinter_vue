@@ -12,34 +12,49 @@ import {
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/services/AuthService";
 import { toast } from "vue-sonner";
+import type { MenuType } from "@/types/MenuType";
+import Dashboard from "@/views/cms/Dashboard.vue";
 
 // Menu items.
-const items = [
+const menus: MenuType[] = [
   {
-    title: "Home",
-    url: "#",
-    icon: Home,
+    group: "Dashboard",
+    items: [
+      { title: "Home", url: "/v1/dashboard", component: Dashboard, icon: "Home" },
+    ],
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    group: "Toko",
+    items: [
+      { title: "Transaksi", url: "/v1/transaction", component: Dashboard, icon: "Calendar" },
+      { title: "Produk", url: "/v1/product", component: Dashboard, icon: "Box" },
+      { title: "Kategori Produk", url: "/v1/product-category", component: Dashboard, icon: "Box" },
+    ],
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
+    group: "Perusahaan",
+    items: [
+      { title: "Cabang", url: "/v1/company", component: Dashboard, icon: "Calendar" },
+      { title: "Kategori Perusahaan", url: "/v1/company-category", component: Dashboard, icon: "Box" },
+      { title: "Karyawan", url: "/v1/employee", component: Dashboard, icon: "Box" },
+      { title: "Shift", url: "/v1/shift", component: Dashboard, icon: "Box" },
+      { title: "Jabatan", url: "/v1/position", component: Dashboard, icon: "Box" },
+    ],
   },
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    group: "Laporan",
+    items: [
+      { title: "Lapor Pajak", url: "/v1/tax", component: Dashboard, icon: "Calendar" },
+    ],
   },
   {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
+    group: "Admin",
+    items: [
+      { title: "User", url: "/v1/user", component: Dashboard, icon: "Calendar" },
+      { title: "Role", url: "/v1/role", component: Dashboard, icon: "Calendar" },
+    ],
   },
+
 ];
 
 const _supabase = useAuth();
@@ -53,11 +68,12 @@ const logout = async () => {
 <template>
   <Sidebar>
     <SidebarContent class="flex flex-col justify-between pb-4">
-      <SidebarGroup>
-        <SidebarGroupLabel>Application</SidebarGroupLabel>
+      <div>
+        <SidebarGroup v-for="(menu, index) in menus" :key="index">
+        <SidebarGroupLabel>{{ menu.group }}</SidebarGroupLabel>
         <SidebarGroupContent>
           <SidebarMenu>
-            <SidebarMenuItem v-for="item in items" :key="item.title">
+            <SidebarMenuItem v-for="item in menu.items" :key="item.title">
               <SidebarMenuButton asChild>
                 <a :href="item.url">
                   <component :is="item.icon" />
@@ -68,6 +84,7 @@ const logout = async () => {
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
+      </div>
       <SidebarMenu>
         <SidebarMenuItem>
           <SidebarMenuButton>
