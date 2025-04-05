@@ -58,7 +58,7 @@ router.beforeEach(async (to) => {
   }
 
   // Redirect logic
-  if (to.meta.requiresAuth && !auth.isLoggedIn()) {
+  if (!auth.isInitialized || !auth.isLoggedIn) {
     return '/login'
   }
 
