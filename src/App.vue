@@ -3,16 +3,20 @@ import { useAuth } from './services/AuthService'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useNetworkStatus } from './composables/useNetworkStatus'
+import Sidebar from './components/elements/globals/Sidebar.vue'
+import SidebarProvider from './components/ui/sidebar/SidebarProvider.vue'
+import { Toaster } from './components/ui/sonner'
+import SidebarTrigger from './components/ui/sidebar/SidebarTrigger.vue'
+import NetworkStatusDialog from './components/NetworkStatusDialog.vue'
 
 const { isOnline, checkNetworkStatus } = useNetworkStatus()
 const auth = useAuth()
 const route = useRoute()
-const isCms = ref(false)
+let isCms = ref(false)
 
 // Update isCms when route changes
-watch(() => route.path, (newPath) => {
-  isCms.value = newPath.startsWith('/v1/')
-}, { immediate: true })
+isCms = window.location.pathname.startsWith('/v1/')
+console.log('isCms:', isCms)
 
 // Debugging
 onMounted(() => {
@@ -27,7 +31,7 @@ onMounted(() => {
       <Toaster :rich-colors="true" />
       <SidebarTrigger v-if="isCms" />
       <router-view v-if="auth.isInitialized"/>
-      <NetworkStatusDialog 
+      <NetworkStatusDialog
         :isOnline="isOnline" 
         @retry="checkNetworkStatus" 
         v-if="!isOnline && isCms" 
