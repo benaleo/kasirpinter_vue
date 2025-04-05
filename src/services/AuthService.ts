@@ -3,16 +3,41 @@ import { supabase } from '../lib/supabaseClient'
 import type { User, AuthResponse } from '@supabase/supabase-js'
 
 const user = ref<User | null>(null)
+const isLoading = ref(true)
+const isInitialized = ref(false) // Add this flag
+
+// Proper initialization function
+async function initializeAuth() {
+  try {
+    const { data: { user: supabaseUser }, error } = await supabase.auth.getUser()
+    if (error) throw error
+    user.value = supabaseUser
+  } catch (error) {
+    user.value = null
+  } finally {
+    isLoading.value = false
+    isInitialized.value = true
+  }
+}
+
+// Initialize immediately
+initializeAuth()
+
+// Listen for auth changes
+supabase.auth.onAuthStateChange((event, session) => {
+  user.value = session?.user || null
+})
 
 // Initialize user on mount
 supabase.auth.getUser().then(({ data }) => {
   user.value = data.user
+}).finally(() => {
+  isLoading.value = false // Mark loading as complete
 })
 
-// Listen for auth state changes
-supabase.auth.onAuthStateChange((_, session) => {
-  user.value = session?.user || null
-})
+function isLoggedIn() {
+  return !!user.value
+}
 
 async function login(email: string, password: string) {
   const { data, error }: AuthResponse = await supabase.auth.signInWithPassword({
@@ -20,7 +45,8 @@ async function login(email: string, password: string) {
     password
   })
   if (error) throw error
-  return data
+  console.log("data login is : " + data)
+  return { data, error: null }
 }
 
 async function loginWithSocialProvider(provider: 'google' | 'github') {
@@ -29,10 +55,6 @@ async function loginWithSocialProvider(provider: 'google' | 'github') {
   })
   if (error) throw error
   return data
-}
-
-function isLoggedIn() {
-  return !!user.value
 }
 
 async function logout() {
@@ -77,16 +99,23 @@ async function maybeHandleEmailConfirmation() {
   return null
 }
 
+function getUserData() {
+  return supabase.auth.getUser().then(({ data }) => data.user)
+}
+
 export function useAuth() {
   return {
     user,
     login,
     loginWithSocialProvider,
-    isLoggedIn,
+    isLoading,
+    isInitialized,
+    isLoggedIn: () => !!user.value,
     logout,
     register,
     update,
     sendPasswordRestEmail,
     maybeHandleEmailConfirmation,
+    getUserData
   }
 }

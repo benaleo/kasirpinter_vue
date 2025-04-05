@@ -30,10 +30,9 @@ const authService = useAuth();
 const onSubmit = handleSubmit((values) => {
   console.log('Form submitted!', values)
   authService.login(values.email, values.password)
-    .then(({ data, user }) => {
-      console.log('User logged in:', user)
-      console.log('Auth data:', data)
-      if (user == null) {
+    .then(({ data }) => {
+      console.log('User logged in:', data)
+      if (data.user == null) {
         toast.error('Terjadi kesalahan saat login')
         return
       } else {
