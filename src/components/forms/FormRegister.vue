@@ -8,6 +8,7 @@ import { toast } from 'vue-sonner'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { useAuth } from '@/services/AuthService.ts'
+import FormText from '@/components/elements/form/FormText.vue'
 
 const formSchema = toTypedSchema(
   z.object({
@@ -50,44 +51,12 @@ const onSubmit = handleSubmit((values) => {
 <template>
   <form @submit="onSubmit" class="w-full flex flex-col gap-4">
     <div class="flex flex-col gap-2">
-      <FormField v-slot="{ componentField }" name="name">
-        <FormItem class="w-full">
-          <FormLabel>Nama</FormLabel>
-          <FormControl>
-            <Input type="text" placeholder="Masukan nama" v-bind="componentField" />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      </FormField>
-      <FormField v-slot="{ componentField }" name="email">
-        <FormItem class="w-full">
-          <FormLabel>Email</FormLabel>
-          <FormControl>
-            <Input type="email" placeholder="Masukan email" v-bind="componentField" />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      </FormField>
-      <FormField v-slot="{ componentField }" name="password">
-        <FormItem>
-          <FormLabel>Password</FormLabel>
-          <FormControl>
-            <Input type="password" placeholder="******" v-bind="componentField" />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      </FormField>
-      <FormField v-slot="{ componentField }" name="confirmPassword">
-        <FormItem>
-          <FormLabel>Konfirmasi Password</FormLabel>
-          <FormControl>
-            <Input type="password" placeholder="******" v-bind="componentField" />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      </FormField>
+      <FormText name="name" label="Nama" placeholder="Masukan nama" />
+      <FormText name="email" label="Email" placeholder="Masukan email" />
+      <FormText name="password" label="Password" placeholder="******" type="password" />
+      <FormText name="confirmPassword" label="Konfirmasi Password" placeholder="******" type="password" />
     </div>
     <Button type="submit" class="w-full" variant="primary"> Daftar </Button>
   </form>
-  <a href="/login" class="text-sm text-blue-600 hover:underline">Sudah punya akun? Masuk</a>
+  <a href="/login" class="text-sm text-black hover:underline">Sudah punya akun? Masuk</a>
 </template>

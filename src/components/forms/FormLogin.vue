@@ -9,6 +9,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { toast } from 'vue-sonner'
 import { useAuth } from '@/services/AuthService.ts'
+import FormText from '@/components/elements/form/FormText.vue'
 
 const formSchema = toTypedSchema(
   z.object({
@@ -46,24 +47,8 @@ const onSubmit = handleSubmit((values) => {
 <template>
   <form @submit="onSubmit" class="w-full flex flex-col gap-4">
     <div class="flex flex-col gap-2">
-      <FormField v-slot="{ componentField }" name="email">
-        <FormItem class="w-full">
-          <FormLabel>Email</FormLabel>
-          <FormControl>
-            <Input type="email" placeholder="Masukan email" v-bind="componentField" />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      </FormField>
-      <FormField v-slot="{ componentField }" name="password">
-        <FormItem>
-          <FormLabel>Password</FormLabel>
-          <FormControl>
-            <Input type="password" placeholder="******" v-bind="componentField" />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      </FormField>
+      <FormText name="email" label="Email" placeholder="Masukan email" />
+      <FormText name="password" label="Password" placeholder="******"  type="password"/>
     </div>
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-2">
@@ -74,5 +59,5 @@ const onSubmit = handleSubmit((values) => {
     </div>
     <Button type="submit" class="w-full" variant="primary"> Masuk </Button>
   </form>
-  <a href="/register" class="text-sm text-blue-600 hover:underline">Belum punya akun? Daftar</a>
+  <a href="/register" class="text-sm text-black hover:underline">Belum punya akun? Daftar</a>
 </template>

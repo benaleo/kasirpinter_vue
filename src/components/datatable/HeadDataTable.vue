@@ -1,10 +1,15 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
+import {Button} from '@/components/ui/button'
+import {useRouter} from 'vue-router'
 
-const { title } = defineProps<{
+const {title} = defineProps<{
   title: string
   isCreated: boolean
+  addLink?: string
 }>()
+
+const router = useRouter()
+
 </script>
 
 <template>
@@ -12,7 +17,8 @@ const { title } = defineProps<{
     <h3 class="">
       {{ title }}
     </h3>
-    <Button v-if="isCreated" variant="add" class="">Tambah</Button>
+    <Button v-if="isCreated" variant="add" class="" @click="router.push(addLink ? addLink : '/create')">Tambah
+    </Button>
   </div>
 </template>
 

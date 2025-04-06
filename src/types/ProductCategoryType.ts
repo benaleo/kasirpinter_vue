@@ -10,4 +10,5 @@ export type ProductCategoryType = {
 export type ProductCategoryCreateUpdateType = {
   name: string
   company_id: string
+  user_id: string
 }
