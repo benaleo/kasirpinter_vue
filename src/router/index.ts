@@ -5,6 +5,8 @@ import LandingPage from '../views/LandingPage.vue'
 import Register from '../views/Register.vue'
 import { useAuth } from '@/services/AuthService'
 import { watch } from 'vue'
+import Dashboard from '@/views/cms/Dashboard.vue'
+import ProductCategory from '@/views/cms/ProductCategory.vue'
 
 const routes = [
   {
@@ -28,9 +30,16 @@ const routes = [
   {
     path: '/v1/dashboard',
     name: 'Dashboard',
-    component: () => import('../views/cms/Dashboard.vue'),
+    component: Dashboard,
     meta: { requiresAuth: true } // Mark as protected
   },
+   {
+    path: '/v1/product-category',
+    name: 'Product Category',
+    component:ProductCategory,
+    meta: { requiresAuth: true } // Mark as protected
+  },
+
   {
     path: '/:catchAll(.*)',
     name: 'NotFound',
@@ -46,7 +55,7 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   const auth = useAuth()
-  
+
   // Wait for auth to initialize
   if (!auth.isInitialized.value) {
     await new Promise((resolve) => {

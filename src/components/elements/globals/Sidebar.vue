@@ -88,8 +88,8 @@ const logout = async () => {
       <SidebarMenu>
         <SidebarMenuItem>
           <SidebarMenuButton>
-            <a @click="logout" class="border rounded-lg w-full py-4 text-center bg-amber-200"
-              :href="`/login`"><span>Logout</span></a>
+            <button @click="logout" class="border rounded-lg w-full py-4 text-center bg-amber-200"
+              ><span>Logout</span></button>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
