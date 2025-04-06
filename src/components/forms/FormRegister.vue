@@ -11,15 +11,17 @@ import { useAuth } from '@/services/AuthService.ts'
 import FormText from '@/components/elements/form/FormText.vue'
 
 const formSchema = toTypedSchema(
-  z.object({
-    name: z.string().min(3).max(255),
-    email: z.string().email(),
-    password: z.string().min(6),
-    confirmPassword: z.string().min(6),
-  }).refine(data => data.password === data.confirmPassword, {
-    message: 'Password tidak sama',
-    path: ['confirmPassword'],
-  })
+  z
+    .object({
+      name: z.string().min(3).max(255),
+      email: z.string().email(),
+      password: z.string().min(6),
+      confirmPassword: z.string().min(6),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: 'Password tidak sama',
+      path: ['confirmPassword'],
+    }),
 )
 
 const { handleSubmit } = useForm({
@@ -54,7 +56,12 @@ const onSubmit = handleSubmit((values) => {
       <FormText name="name" label="Nama" placeholder="Masukan nama" />
       <FormText name="email" label="Email" placeholder="Masukan email" />
       <FormText name="password" label="Password" placeholder="******" type="password" />
-      <FormText name="confirmPassword" label="Konfirmasi Password" placeholder="******" type="password" />
+      <FormText
+        name="confirmPassword"
+        label="Konfirmasi Password"
+        placeholder="******"
+        type="password"
+      />
     </div>
     <Button type="submit" class="w-full" variant="primary"> Daftar </Button>
   </form>

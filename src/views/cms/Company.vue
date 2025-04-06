@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import DataTable from '@/components/datatable/DataTable.vue'
 import HeadDataTable from '@/components/datatable/HeadDataTable.vue'
-import {useCompany} from "@/services/CompanyService.ts";
-import {companyColumns} from "@/components/datatable/company/company-column.ts";
+import { useCompany } from '@/services/CompanyService.ts'
+import { companyColumns } from '@/components/datatable/company/company-column.ts'
 
 // Use the hook directly - it already handles reactive data
 const { listData, error } = useCompany().fetchAll(true)
 const path = window.location.pathname
-
 </script>
 
 <template>

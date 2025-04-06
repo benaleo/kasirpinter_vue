@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import {Button} from '@/components/ui/button'
-import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,} from '@/components/ui/dropdown-menu'
-import {MoreHorizontal} from 'lucide-vue-next'
-import {useRouter} from 'vue-router'
-import {useProductCategory} from '@/services/ProductCategoryService.ts'
-import {ref} from 'vue'
-import DialogConfirm from "@/components/elements/DialogConfirm.vue";
-import {toast} from "vue-sonner";
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { MoreHorizontal } from 'lucide-vue-next'
+import { useRouter } from 'vue-router'
+import { useProductCategory } from '@/services/ProductCategoryService.ts'
+import { ref } from 'vue'
+import DialogConfirm from '@/components/elements/DialogConfirm.vue'
+import { toast } from 'vue-sonner'
 
 // Declare the props and emits
 defineProps<{
@@ -30,14 +37,14 @@ function edit(id: string) {
 }
 
 function remove(id: string) {
- try{
-   productCategoryService.delete(id)
- } catch (error : any){
-   toast.error(error.message)
- } finally {
-   window.location.href = '/v1/product-category'
-   toast.success('data berhasil dihapus')
- }
+  try {
+    productCategoryService.delete(id)
+  } catch (error: any) {
+    toast.error(error.message)
+  } finally {
+    window.location.href = '/v1/product-category'
+    toast.success('data berhasil dihapus')
+  }
 }
 </script>
 
@@ -57,6 +64,4 @@ function remove(id: string) {
       <DialogConfirm :action="() => remove(item.id)" isDelete />
     </DropdownMenuContent>
   </DropdownMenu>
-
-
 </template>

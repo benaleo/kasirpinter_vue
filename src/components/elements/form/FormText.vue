@@ -22,6 +22,4 @@ const props = defineProps<{
   </FormField>
 </template>
 
-<style scoped lang="css">
-
-</style>
+<style scoped lang="css"></style>

@@ -1,8 +1,20 @@
 <script setup lang="ts">
-import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger,} from '@/components/ui/dialog'
-import {ref} from "vue";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { ref } from 'vue'
 
-const {action, isDelete, className: _} = defineProps<{
+const {
+  action,
+  isDelete,
+  className: _,
+} = defineProps<{
   action: () => void
   isDelete: boolean
   className?: string
@@ -27,11 +39,11 @@ const handleAction = () => {
 </script>
 
 <template>
-  <Dialog :open="isOpen" @update:open="(val:any) => isOpen = val">
+  <Dialog :open="isOpen" @update:open="(val: any) => (isOpen = val)">
     <DialogTrigger
-        class="pl-2 text-sm hover:bg-red-600 hover:text-white w-full hover:rounded-md text-left py-1"
-        :class="className"
-        @click="isOpen = true"
+      class="pl-2 text-sm hover:bg-red-600 hover:text-white w-full hover:rounded-md text-left py-1"
+      :class="className"
+      @click="isOpen = true"
     >
       {{ buttonName }}
     </DialogTrigger>
@@ -45,8 +57,8 @@ const handleAction = () => {
 
       <DialogFooter>
         <button
-            class="border-1 rounded-lg px-4 py-2 hover:bg-red-600 hover:text-white"
-            @click="handleAction"
+          class="border-1 rounded-lg px-4 py-2 hover:bg-red-600 hover:text-white"
+          @click="handleAction"
         >
           Ya, {{ buttonName }}
         </button>

@@ -7,7 +7,6 @@ import { useProductCategory } from '@/services/ProductCategoryService.ts'
 // Use the hook directly - it already handles reactive data
 const { listData, error } = useProductCategory().fetchAll()
 const path = window.location.pathname
-
 </script>
 
 <template>

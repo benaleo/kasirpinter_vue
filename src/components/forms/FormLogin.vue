@@ -48,7 +48,7 @@ const onSubmit = handleSubmit((values) => {
   <form @submit="onSubmit" class="w-full flex flex-col gap-4">
     <div class="flex flex-col gap-2">
       <FormText name="email" label="Email" placeholder="Masukan email" />
-      <FormText name="password" label="Password" placeholder="******"  type="password"/>
+      <FormText name="password" label="Password" placeholder="******" type="password" />
     </div>
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-2">

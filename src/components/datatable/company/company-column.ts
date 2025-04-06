@@ -40,7 +40,7 @@ export const companyColumns: ColumnDef<CompanyType>[] = [
     },
     cell: ({ row }) => {
       const sub = row.original.sub
-      const subNames = sub ? sub.map(s => s.name).join(', ') : 'N/A'
+      const subNames = sub ? sub.map((s) => s.name).join(', ') : 'N/A'
       return h('div', { class: 'lowercase' }, subNames)
     },
   },

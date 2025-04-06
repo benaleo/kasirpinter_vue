@@ -7,7 +7,7 @@ import { CheckIcon } from 'vue-feather-icons'
 
 export default {
   components: {
-    CheckIcon
-  }
+    CheckIcon,
+  },
 }
 </script>

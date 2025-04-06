@@ -7,7 +7,7 @@ import { ChevronDownIcon } from 'vue-feather-icons'
 
 export default {
   components: {
-    ChevronDownIcon
-  }
+    ChevronDownIcon,
+  },
 }
 </script>
