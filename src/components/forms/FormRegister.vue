@@ -7,16 +7,18 @@ import { Input } from '@/components/ui/input'
 import { toast } from 'vue-sonner'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { supabase } from '@/lib/supabaseClient'
-import { useAuth } from '@/services/AuthService'
-import type { AuthResponse } from '@supabase/supabase-js'
+import { useAuth } from '@/services/AuthService.ts'
 
 const formSchema = toTypedSchema(
   z.object({
     name: z.string().min(3).max(255),
     email: z.string().email(),
     password: z.string().min(6),
-  }),
+    confirmPassword: z.string().min(6),
+  }).refine(data => data.password === data.confirmPassword, {
+    message: 'Password tidak sama',
+    path: ['confirmPassword'],
+  })
 )
 
 const { handleSubmit } = useForm({
@@ -29,9 +31,8 @@ const onSubmit = handleSubmit((values) => {
   console.log('Form submitted!', values)
   authService
     .register(values.email, values.password, values.name)
-    .then(({ data, user }) => {
+    .then(({ user }) => {
       console.log('User registered:', user)
-      console.log('Auth data:', data)
       if (user == null) {
         toast.error('Terjadi kesalahan saat registrasi')
         return
@@ -76,15 +77,17 @@ const onSubmit = handleSubmit((values) => {
           <FormMessage />
         </FormItem>
       </FormField>
+      <FormField v-slot="{ componentField }" name="confirmPassword">
+        <FormItem>
+          <FormLabel>Konfirmasi Password</FormLabel>
+          <FormControl>
+            <Input type="password" placeholder="******" v-bind="componentField" />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      </FormField>
     </div>
-    <div class="flex justify-between items-center">
-      <div class="flex items-center gap-2">
-        <input type="checkbox" name="ingat-saya" id="ingat-saya" />
-        <label for="ingat-saya" class="text-sm">Ingat Saya</label>
-      </div>
-      <a href="#" class="text-sm text-blue-600 hover:underline">Lupa Password</a>
-    </div>
-    <Button type="submit" class="w-full" variant="primary"> Masuk </Button>
+    <Button type="submit" class="w-full" variant="primary"> Daftar </Button>
   </form>
   <a href="/login" class="text-sm text-blue-600 hover:underline">Sudah punya akun? Masuk</a>
 </template>
