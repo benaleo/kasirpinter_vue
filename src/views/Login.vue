@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import FormLogin from '@/components/elements/FormLogin.vue'
+import FormLogin from '@/components/forms/FormLogin.vue'
 import { useAuth } from '@/services/AuthService'
 
 const auth = useAuth()

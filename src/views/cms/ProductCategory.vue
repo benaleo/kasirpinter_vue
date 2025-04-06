@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { productCategoryColumns } from '@/components/elements/datatable/product-category/product-category-column.ts'
-import DataTable from '@/components/elements/datatable/DataTable.vue'
-import HeadDataTable from '@/components/elements/datatable/HeadDataTable.vue'
+import { productCategoryColumns } from '@/components/datatable/product-category/product-category-column.ts'
+import DataTable from '@/components/datatable/DataTable.vue'
+import HeadDataTable from '@/components/datatable/HeadDataTable.vue'
 import { useProductCategory } from '@/services/ProductCategoryService.ts'
 
 // Use the hook directly - it already handles reactive data

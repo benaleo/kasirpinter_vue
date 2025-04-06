@@ -4,11 +4,11 @@ import * as z from 'zod'
 import { Button } from '@/components/ui/button'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { supabase } from '@/lib/supabaseClient'
+import { supabase } from '@/lib/supabaseClient.ts'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { toast } from 'vue-sonner'
-import { useAuth } from '@/services/AuthService'
+import { useAuth } from '@/services/AuthService.ts'
 
 const formSchema = toTypedSchema(
   z.object({

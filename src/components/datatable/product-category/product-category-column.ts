@@ -2,7 +2,7 @@ import { h } from 'vue'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { ArrowUpDown } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
-import ProductCategoryDropdown from '@/components/elements/datatable/product-category/ProductCategoryDropdown.vue'
+import ProductCategoryDropdown from '@/components/datatable/product-category/ProductCategoryDropdown.vue'
 import type { ProductCategoryType } from '@/types/ProductCategoryType.ts'
 
 export const productCategoryColumns: ColumnDef<ProductCategoryType>[] = [

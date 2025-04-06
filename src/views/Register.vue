@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import FormRegister from '@/components/elements/FormRegister.vue'
+import FormRegister from '@/components/forms/FormRegister.vue'
 import { ref } from 'vue'
 
 const feature = ref()
