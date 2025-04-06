@@ -2,14 +2,14 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 export function useNetworkStatus() {
   const isOnline = ref(navigator.onLine)
-  let checkInterval : any = null
+  let checkInterval: any = null
 
   // More reliable check that actually tests connectivity
   const performNetworkCheck = async () => {
     try {
       const response = await fetch('https://httpbin.org/get?cache=' + Date.now(), {
         method: 'HEAD',
-        cache: 'no-store'
+        cache: 'no-store',
       })
       isOnline.value = response.ok
     } catch (error) {
@@ -43,8 +43,8 @@ export function useNetworkStatus() {
     if (checkInterval) clearInterval(checkInterval)
   })
 
-  return { 
+  return {
     isOnline,
-    checkNetworkStatus: updateNetworkStatus
+    checkNetworkStatus: updateNetworkStatus,
   }
 }

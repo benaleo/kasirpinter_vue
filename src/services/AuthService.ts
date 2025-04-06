@@ -9,7 +9,10 @@ const isInitialized = ref(false) // Add this flag
 // Proper initialization function
 async function initializeAuth() {
   try {
-    const { data: { user: supabaseUser }, error } = await supabase.auth.getUser()
+    const {
+      data: { user: supabaseUser },
+      error,
+    } = await supabase.auth.getUser()
     if (error) throw error
     user.value = supabaseUser
   } catch (error) {
@@ -29,11 +32,14 @@ supabase.auth.onAuthStateChange((event, session) => {
 })
 
 // Initialize user on mount
-supabase.auth.getUser().then(({ data }) => {
-  user.value = data.user
-}).finally(() => {
-  isLoading.value = false // Mark loading as complete
-})
+supabase.auth
+  .getUser()
+  .then(({ data }) => {
+    user.value = data.user
+  })
+  .finally(() => {
+    isLoading.value = false // Mark loading as complete
+  })
 
 function isLoggedIn() {
   return !!user.value
@@ -42,16 +48,16 @@ function isLoggedIn() {
 async function login(email: string, password: string) {
   const { data, error }: AuthResponse = await supabase.auth.signInWithPassword({
     email,
-    password
+    password,
   })
   if (error) throw error
-  console.log("data login is : " + data)
+  console.log('data login is : ' + data)
   return { data, error: null }
 }
 
 async function loginWithSocialProvider(provider: 'google' | 'github') {
   const { data, error } = await supabase.auth.signInWithOAuth({
-    provider
+    provider,
   })
   if (error) throw error
   return data
@@ -68,7 +74,7 @@ async function register(email: string, password: string, name: string) {
       data: { name },
     },
     email,
-    password
+    password,
   })
   if (error) throw error
   return data
@@ -85,19 +91,19 @@ async function sendPasswordRestEmail(email: string) {
   if (error) throw error
 }
 
-async function maybeHandleEmailConfirmation() {
-  const hash = window.location.hash
-  if (hash && hash.includes('type=recovery')) {
-    const { data, error } = await supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'PASSWORD_RECOVERY') {
-        return { event, session }
-      }
-    })
-    if (error) throw error
-    return data
-  }
-  return null
-}
+// async function maybeHandleEmailConfirmation() {
+//   const hash = window.location.hash
+//   if (hash && hash.includes('type=recovery')) {
+//     const { data, error } = await supabase.auth.onAuthStateChange((event, session) => {
+//       if (event === 'PASSWORD_RECOVERY') {
+//         return { event, session }
+//       }
+//     })
+//     if (error) throw error
+//     return data
+//   }
+//   return null
+// }
 
 function getUserData() {
   return supabase.auth.getUser().then(({ data }) => data.user)
@@ -115,7 +121,7 @@ export function useAuth() {
     register,
     update,
     sendPasswordRestEmail,
-    maybeHandleEmailConfirmation,
-    getUserData
+    // maybeHandleEmailConfirmation,
+    getUserData,
   }
 }

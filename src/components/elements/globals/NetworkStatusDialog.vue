@@ -16,7 +16,7 @@ import { ref, watch, onMounted } from 'vue'
 import { toast } from 'vue-sonner'
 
 const props = defineProps({
-  isOnline: Boolean
+  isOnline: Boolean,
 })
 
 const emit = defineEmits(['retry'])
@@ -29,22 +29,26 @@ const handleRetry = () => {
   emit('retry')
 }
 
-watch(() => props.isOnline, (newStatus) => {
-  if (!newStatus) {
-    title.value = 'Connection Lost'
-    message.value = 'You are currently offline. Some features may not be available.'
-    visible.value = true
-  } else {
-    title.value = 'Connection Restored'
-    message.value = 'Your internet connection has been restored.'
-    visible.value = true
-    toast.success('Your internet connection has been restored.')
-    const timer = setTimeout(() => {
-      visible.value = false
-      clearTimeout(timer)
-    }, 3000)
-  }
-}, { immediate: true })
+watch(
+  () => props.isOnline,
+  (newStatus) => {
+    if (!newStatus) {
+      title.value = 'Connection Lost'
+      message.value = 'You are currently offline. Some features may not be available.'
+      visible.value = true
+    } else {
+      title.value = 'Connection Restored'
+      message.value = 'Your internet connection has been restored.'
+      visible.value = true
+      toast.success('Your internet connection has been restored.')
+      const timer = setTimeout(() => {
+        visible.value = false
+        clearTimeout(timer)
+      }, 3000)
+    }
+  },
+  { immediate: true },
+)
 </script>
 
 <style scoped>

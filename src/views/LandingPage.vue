@@ -1,16 +1,16 @@
 <script setup>
-import Button from '@/components/ui/button/Button.vue';
-import { ref } from 'vue';
+import Button from '@/components/ui/button/Button.vue'
+import { ref } from 'vue'
 
-const feature = ref();
+const feature = ref()
 
 const login = () => {
-  window.location.href = '/login';
-};
+  window.location.href = '/login'
+}
 
 const register = () => {
-  window.location.href = '/register';
-};
+  window.location.href = '/register'
+}
 </script>
 
 <template>
@@ -26,5 +26,4 @@ const register = () => {
   </div>
 </template>
 
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>

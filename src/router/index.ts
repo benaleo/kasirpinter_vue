@@ -13,44 +13,44 @@ const routes = [
     path: '/',
     name: 'Landing',
     component: LandingPage,
-    meta: { isPublic: true }
+    meta: { isPublic: true },
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: { isPublic: true, preventAuthed: true }
+    meta: { isPublic: true, preventAuthed: true },
   },
   {
     path: '/register',
     name: 'Register',
     component: Register,
-    meta: { isPublic: true, preventAuthed: true }
+    meta: { isPublic: true, preventAuthed: true },
   },
   {
     path: '/v1/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-    meta: { requiresAuth: true } // Mark as protected
+    meta: { requiresAuth: true }, // Mark as protected
   },
-   {
+  {
     path: '/v1/product-category',
     name: 'Product Category',
-    component:ProductCategory,
-    meta: { requiresAuth: true } // Mark as protected
+    component: ProductCategory,
+    meta: { requiresAuth: true }, // Mark as protected
   },
 
   {
     path: '/:catchAll(.*)',
     name: 'NotFound',
     component: NotFound,
-    meta: { isPublic: true }
-  }
+    meta: { isPublic: true },
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
 })
 
 router.beforeEach(async (to) => {
@@ -59,12 +59,15 @@ router.beforeEach(async (to) => {
   // Wait for auth to initialize
   if (!auth.isInitialized.value) {
     await new Promise((resolve) => {
-      const unwatch = watch(() => auth.isInitialized.value, (initialized) => {
-        if (initialized) {
-          unwatch()
-          resolve(true)
-        }
-      })
+      const unwatch = watch(
+        () => auth.isInitialized.value,
+        (initialized) => {
+          if (initialized) {
+            unwatch()
+            resolve(true)
+          }
+        },
+      )
     })
   }
 

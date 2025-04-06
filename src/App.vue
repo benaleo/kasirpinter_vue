@@ -30,8 +30,8 @@ onMounted(() => {
     <main class="w-full">
       <Toaster :rich-colors="true" />
       <SidebarTrigger v-if="isCms" />
-      <div :class="isCms ? 'px-12' : 'px-0'">
-        <router-view v-if="auth.isInitialized"/>
+      <div :class="isCms ? 'px-12 py-24' : 'px-0 py-0'">
+        <router-view v-if="auth.isInitialized" />
       </div>
       <NetworkStatusDialog
         :isOnline="isOnline"

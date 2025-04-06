@@ -14,25 +14,32 @@ const mapUser = (supabaseUser: any): UserType | null => {
     id: supabaseUser.id,
     email: supabaseUser.email,
     name: supabaseUser.user_metadata?.name || supabaseUser.email,
-    last_sign_in_at: supabaseUser.last_sign_in_at
+    last_sign_in_at: supabaseUser.last_sign_in_at,
   }
 }
 
 // Watch both initialization and user changes
-watch(() => auth.isInitialized, (initialized) => {
-  if (initialized) {
-    isReady.value = true
-    user.value = mapUser(auth.user.value)
-    console.log('Supabase user initialized:', auth.user.value)
-  }
-}, { immediate: true })
+watch(
+  () => auth.isInitialized,
+  (initialized) => {
+    if (initialized) {
+      isReady.value = true
+      user.value = mapUser(auth.user.value)
+      console.log('Supabase user initialized:', auth.user.value)
+    }
+  },
+  { immediate: true },
+)
 
 // Also watch for user changes after initialization
-watch(() => auth.user.value, (newUser) => {
-  if (auth.isInitialized) {
-    user.value = mapUser(newUser)
-  }
-})
+watch(
+  () => auth.user.value,
+  (newUser) => {
+    if (auth.isInitialized) {
+      user.value = mapUser(newUser)
+    }
+  },
+)
 </script>
 
 <template>
@@ -44,12 +51,10 @@ watch(() => auth.user.value, (newUser) => {
       <p>Last login: {{ new Date(user.last_sign_in_at).toLocaleString() }}</p>
     </div>
   </div>
-  
+
   <div v-else-if="isReady">
     <p>Please log in to access the dashboard</p>
   </div>
-  
-  <div v-else>
-    Loading authentication status...
-  </div>
+
+  <div v-else>Loading authentication status...</div>
 </template>

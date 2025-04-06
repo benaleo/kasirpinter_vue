@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { MoreHorizontal } from 'lucide-vue-next'
 
 defineProps<{
-  payment: {
+  item: {
     id: string
   }
 }>()
@@ -24,9 +31,7 @@ function copy(id: string) {
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-      <DropdownMenuItem @click="copy(payment.id)">
-        Copy payment ID
-      </DropdownMenuItem>
+      <DropdownMenuItem @click="copy(item.id)"> Copy payment ID </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem>View customer</DropdownMenuItem>
       <DropdownMenuItem>View payment details</DropdownMenuItem>
