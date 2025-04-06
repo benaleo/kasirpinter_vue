@@ -7,7 +7,7 @@ import Sidebar from './components/elements/globals/Sidebar.vue'
 import SidebarProvider from './components/ui/sidebar/SidebarProvider.vue'
 import { Toaster } from './components/ui/sonner'
 import SidebarTrigger from './components/ui/sidebar/SidebarTrigger.vue'
-import NetworkStatusDialog from './components/NetworkStatusDialog.vue'
+import NetworkStatusDialog from './components/elements/globals/NetworkStatusDialog.vue'
 
 const { isOnline, checkNetworkStatus } = useNetworkStatus()
 const auth = useAuth()
